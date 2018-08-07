@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import RestoreIcon from '@material-ui/icons/Restore';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
+import ReceiptIcon from '@material-ui/icons/Receipt';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
 import Badge from '@material-ui/core/Badge';
@@ -19,16 +20,37 @@ const styles = {
 class MobileNavigation extends Component {
 
   state = {
-    value: 0,
+    value: -1,
   };
 
   handleChange = (event, value) => {
     this.setState({ value });
   };
 
+  componentDidMount() {
+    const { location } = this.props;
+
+    switch(location.pathname) {
+      case '/dashboard/proximos':
+        this.setState({value: 0});
+        break;
+      case '/dashboard/boletos':
+        this.setState({value: 1});
+        break;
+      case '/dashboard/resultados':
+        this.setState({value: 2});
+        break;
+      default:
+        this.setState({value: -1});
+        break;
+    }
+  }
+
   render() {
     const { classes } = this.props;
     const { value } = this.state;
+
+    console.log(this.props);
 
     return (
       <BottomNavigation
@@ -37,14 +59,34 @@ class MobileNavigation extends Component {
         showLabels
         className={classes.root}
       >
-        <BottomNavigationAction label="Juegos" icon={<RestoreIcon />} />
-        <BottomNavigationAction label="Boletos" icon={<FavoriteIcon />} />
-        <BottomNavigationAction label="Resultados" icon={<DateRangeIcon />} />
-        <BottomNavigationAction label="Notificaciones" icon={
-          <Badge className={classes.margin} badgeContent={4} color="primary">
-            <NotificationsNoneIcon />
-          </Badge>
-        } />
+        <BottomNavigationAction 
+          component={Link}
+          to="/dashboard/proximos"
+          label="Jugar" 
+          icon={<MonetizationOnIcon />} 
+        />
+        <BottomNavigationAction 
+          component={Link}
+          to="/dashboard/boletos"
+          label="Boletos" 
+          icon={<ReceiptIcon />} 
+        />
+        <BottomNavigationAction 
+          component={Link}
+          to="/dashboard/resultados"
+          label="Resultados" 
+          icon={<DateRangeIcon />} 
+        />
+        <BottomNavigationAction
+          component={Link}
+          to="/dashboard/notificaciones" 
+          label="Notificaciones" 
+          icon={
+            <Badge className={classes.margin} badgeContent={4} color="primary">
+              <NotificationsNoneIcon />
+            </Badge>
+          } 
+        />
   
       </BottomNavigation>
     );
@@ -60,7 +102,7 @@ function mapDispatchToProps(dispatch) {
   return {};
 }
 
-export default withStyles(styles)(connect(
+export default withStyles(styles)(withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(MobileNavigation));
+)(MobileNavigation)));

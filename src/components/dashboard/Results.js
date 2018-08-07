@@ -13,7 +13,7 @@ import IconButton from '@material-ui/core/IconButton';
 import FolderIcon from '@material-ui/icons/Folder';
 import Star from '@material-ui/icons/Star';
 import StarBorder from '@material-ui/icons/StarBorder';
-
+import results from './resultsConstant';
 
 const styles = theme => ({
   content: {
@@ -30,58 +30,19 @@ const styles = theme => ({
 });
 
 class Results extends Component {
+  state = {
+    results: results
+  };
 
-  results = [
-    {
-      id: 1,
-      type: 'Tris',
-      img: '',
-      date: '10/10/2018',
-      time: '10 hrs',
-      result: '7873',
-      favorite: false
-    },
-    {
-      id: 2,
-      type: 'Loteria Nacional',
-      img: '',
-      date: '10/10/2018',
-      time: '18 hrs',
-      result: '9043',
-      favorite: false
-    },
-    {
-      id: 3,
-      type: 'Loteria Nacional',
-      img: '',
-      date: '17/10/2018',
-      time: '18 hrs',
-      result: '1975',
-      favorite: false
-    },
-    {
-      id: 4,
-      type: 'Tris',
-      img: '',
-      date: '17/10/2018',
-      time: '10 hrs',
-      result: '2490',
-      favorite: false
-    },
-    {
-      id: 5,
-      type: 'Loteria Nacional',
-      img: '',
-      date: '24/10/2018',
-      time: '18 hrs',
-      result: '7913',
-      favorite: false
+  toggleFavorite = gameId => {
+    const resultsTemp = [...this.state.results];
+    const selectedResult = resultsTemp.find(item => item.id === gameId);
+    if (selectedResult) {
+      selectedResult.favorite =  !selectedResult.favorite;
     }
-    
-  ];
-
-  toggleFavorite = id => {
-    console.log(id);
+    this.setState({
+      results: resultsTemp
+    });
   }
 
   render() {
@@ -95,7 +56,7 @@ class Results extends Component {
           </Typography>
           <div className={classes.demo}>
             <List>
-              { this.results.map(item => {
+              { results.map(item => {
                   return(
                     <ListItem key={item.id}>
                       <ListItemAvatar>
@@ -105,17 +66,18 @@ class Results extends Component {
                       </ListItemAvatar>
                       <ListItemText
                         primary={item.type}
-                        secondary={`${item.date} a las ${item.time}`}
+                        secondary={`${item.date} - ${item.time}`}
                       />
                       <ListItemSecondaryAction>
-                        <IconButton aria-label="Marcar como favorito" onClick={this.toggleFavorite(item.id)}>
+                        <IconButton aria-label="Marcar como favorito" onClick={() => this.toggleFavorite(item.id)}>
                           {item.favorite && <Star />}
                           {!item.favorite && <StarBorder />}
                         </IconButton>
                       </ListItemSecondaryAction>
                     </ListItem>
                   )
-                }, this)}
+                })
+              }
             </List>
           </div>
         </Grid>
