@@ -3,14 +3,48 @@ import { render } from 'react-dom';
 import { BrowserRouter as Router} from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
-import { MuiThemeProvider } from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import App from './app';
 
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      light: '#ffc233',
+      main: '#ffb300',
+      dark: '#b27d00',
+      contrastText: '#fff',
+    },
+    secondary: {
+      light: '#33bfff',
+      main: '#00b0ff',
+      dark: '#007bb2',
+      contrastText: '#fff',
+    },
+    background: {
+      default: "#f4f4f4"
+    }
+  },
+  overrides: {
+    MuiButton: {
+      outlined: {
+        borderColor: '#ffb300',
+      }
+    },
+    MuiFormControl: {
+      root: {
+        width: '100%',
+      }
+    }
+  },
+});
+
 render(
-  <Provider store={store}>
-    <Router>
-      <App />
-    </Router>
-  </Provider>,
+  <MuiThemeProvider theme={theme}>
+    <Provider store={store}>
+      <Router>
+        <App />
+      </Router>
+    </Provider>
+  </MuiThemeProvider>,
   document.getElementById('root'));
 

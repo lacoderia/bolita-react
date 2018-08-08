@@ -19,18 +19,19 @@ import results from './resultsConstant';
 
 const styles = theme => ({
   content: {
+    flexGrow: 1,
     backgroundColor: theme.palette.background.default,
-    padding: theme.spacing.unit * 1,
+    padding: theme.spacing.unit * 3,
   },
-  cardContent: {
-    padding: '8px !important'
+  demo: {
+    backgroundColor: theme.palette.background.paper,
   },
   title: {
-    margin: `8px 8px ${theme.spacing.unit * 2}px`,
+    margin: `0px 0 ${theme.spacing.unit * 2}px`,
   },
 });
 
-class Results extends Component {
+class Tickets extends Component {
   state = {
     results: results
   };
@@ -62,7 +63,9 @@ class Results extends Component {
                   return(
                     <ListItem key={item.id}>
                       <ListItemAvatar>
-                        <Avatar src={item.img} />
+                        <Avatar>
+                          <FolderIcon />
+                        </Avatar>
                       </ListItemAvatar>
                       <ListItemText
                         primary={item.type}
@@ -70,8 +73,8 @@ class Results extends Component {
                       />
                       <ListItemSecondaryAction>
                         <IconButton aria-label="Marcar como favorito" onClick={() => this.toggleFavorite(item.id)}>
-                          {item.favorite && <Star style={{color: '#ffcf33'}}/>}
-                          {!item.favorite && <StarBorder style={{color: '#ffcf33'}}/>}
+                          {item.favorite && <Star />}
+                          {!item.favorite && <StarBorder />}
                         </IconButton>
                       </ListItemSecondaryAction>
                     </ListItem>
@@ -88,4 +91,4 @@ class Results extends Component {
   
 };
 
-export default withStyles(styles)(Results);
+export default withStyles(styles)(Tickets);

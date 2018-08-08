@@ -45,7 +45,7 @@ class Navigation extends Component {
         <Toolbar>
           <div className={classes.logoContainer}>
             <a href="/" className={classes.logo}>
-              <img src="/images/logo-white@2x.png" className={classes.img} alt="Logo Prana"/>
+              <img src="/images/logo@2x.png" className={classes.img} alt="Logo Prana"/>
             </a>
           </div>
           <div>

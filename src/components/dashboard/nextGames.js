@@ -8,57 +8,116 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
 import FolderIcon from '@material-ui/icons/Folder';
 import nextGamesMock from './nextGamesConstant';
 
 const styles = theme => ({
   content: {
-    flexGrow: 1,
     backgroundColor: theme.palette.background.default,
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing.unit * 1,
   },
-  demo: {
-    backgroundColor: theme.palette.background.paper,
+  cardContent: {
+    padding: '8px !important'
+  },
+  playContent: {
+    padding: '8px 16px'
   },
   title: {
-    margin: `0px 0 ${theme.spacing.unit * 2}px`,
+    margin: `8px 8px ${theme.spacing.unit * 2}px`,
+  },
+  actions: {
+    display: 'flex',
+  },
+  playButton: {
+    marginLeft: 'auto',
   },
 });
+
+const playTypes = [
+  {
+    value: 'Directa 4',
+    label: 'Directa 4',
+  },
+  {
+    value: 'Directa 3',
+    label: 'Directa 3',
+  },
+  {
+    value: 'Par inicial',
+    label: 'Par inicial',
+  },
+  {
+    value: 'Par final',
+    label: 'Par final',
+  },
+  {
+    value: 'Inicial',
+    label: 'Inicial',
+  },
+  {
+    value: 'Final',
+    label: 'Final',
+  },
+];
 
 class NextGames extends Component {
 
   state = {
-    view: 'nextGames'
+    view: 'nextGames',
+    playType: 'Directa 4',
+    number: '',
+    amount: ''
   }
 
   showPlayView = () => {
     this.setState({view: 'play'})
   }
 
+  showSummaryView = () => {
+    this.setState({view: 'summary'})
+  }
+
+  showPaymentView = () => {
+    this.setState({view: 'payment'})
+  }
+
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
+
   render() {
     const { classes } = this.props;
     const { view } = this.state;
 
     return(
-      <Grid container spacing={16} className={classes.content}>
-        <Grid item xs={12} md={6}>
-          { view == "nextGames" && (
-            <React.Fragment>
-              <Typography variant="title" className={classes.title}>
-                Próximos juegos
-              </Typography>
-              <div className={classes.demo}>
+      <Grid 
+        container 
+        direction="column"
+        spacing={8}
+        className={classes.content}
+      >
+        { view == "nextGames" && (
+          <Grid item>
+            <Typography variant="title" className={classes.title}>
+              Próximos juegos
+            </Typography>
+            <Card>
+              <CardContent>
                 <List>
-                  {
-                    nextGamesMock.map((item) => {
+                  { nextGamesMock.map((item) => {
                       return(
                         <ListItem key={item.id}>
                           <ListItemAvatar>
-                            <Avatar>
-                              <FolderIcon />
-                            </Avatar>
+                            <Avatar src={item.img} />
                           </ListItemAvatar>
                           <ListItemText
                             primary={item.type}
@@ -79,17 +138,113 @@ class NextGames extends Component {
                     })
                   }
                 </List>
-              </div>
-            </React.Fragment>
-          )}
-          { view == 'play' && (
-            <React.Fragment>
-              <Typography variant="title" className={classes.title}>
-                Let's play
-              </Typography>
-            </React.Fragment>
-          )}
-        </Grid>
+              </CardContent>
+            </Card>
+          </Grid>
+        )}
+        { view == 'play' && (
+          <React.Fragment>
+            <Grid item>
+              <Card>
+                <CardContent className={classes.cardContent}>
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar src="/images/logo-tris.gif" />
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary="Tris"
+                      secondary="17 ago - 20:00"
+                    />
+                  </ListItem>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item >
+              <Card>
+                <CardContent className={classes.cardContent}>
+                  <div className={classes.playContent}>
+                    <Typography variant="subheading" className={classes.title}>
+                      Elige tu jugada
+                    </Typography>
+                    <TextField
+                      id="select-currency"
+                      select
+                      label="Apuesta"
+                      className={classes.textField}
+                      value={this.state.playType}
+                      onChange={this.handleChange('playType')}
+                      SelectProps={{
+                        MenuProps: {
+                          className: classes.menu,
+                        },
+                      }}
+                      margin="normal"
+                    >
+                      {playTypes.map(option => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                    <TextField
+                      id="number"
+                      label="Número"
+                      value={this.state.age}
+                      onChange={this.handleChange('number')}
+                      type="number"
+                      className={classes.textField}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      margin="normal"
+                    />
+                    <TextField
+                      id="number"
+                      label="Cantidad"
+                      value={this.state.age}
+                      onChange={this.handleChange('amount')}
+                      type="number"
+                      className={classes.textField}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      margin="normal"
+                    />
+                    <Typography variant="subheading" className={classes.title}>
+                      Puedes ganar $50,000
+                    </Typography>
+                    
+                  </div>
+                </CardContent>
+                <CardActions className={classes.actions} disableActionSpacing>
+                    <Typography variant="subheading" className={classes.title}>
+                      Total: $5
+                    </Typography>
+                    <Button 
+                      variant="outlined" 
+                      color="primary" 
+                      size="small"
+                      onClick={this.showSummaryView}
+                    >
+                      Jugar
+                    </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          </React.Fragment>
+        )}
+        { view == 'summary' && (
+          <React.Fragment>
+          </React.Fragment>
+        )}
+        { view == 'payment' && (
+          <React.Fragment>
+            <Grid item>
+              <Card>
+              </Card>
+            </Grid>
+          </React.Fragment>
+        )}
       </Grid>
     )
   }

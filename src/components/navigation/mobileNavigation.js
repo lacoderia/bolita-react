@@ -50,8 +50,6 @@ class MobileNavigation extends Component {
     const { classes } = this.props;
     const { value } = this.state;
 
-    console.log(this.props);
-
     return (
       <BottomNavigation
         value={value}
@@ -82,7 +80,7 @@ class MobileNavigation extends Component {
           to="/dashboard/notificaciones" 
           label="Notificaciones" 
           icon={
-            <Badge className={classes.margin} badgeContent={4} color="primary">
+            <Badge className={classes.margin} badgeContent={4} color="secondary">
               <NotificationsNoneIcon />
             </Badge>
           } 
