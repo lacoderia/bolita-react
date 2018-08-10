@@ -9,9 +9,9 @@ import App from './app';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: '#ffc233',
-      main: '#ffb300',
-      dark: '#b27d00',
+      light: '#ffb333',
+      main: '#ffa000',
+      dark: '#b27000',
       contrastText: '#fff',
     },
     secondary: {
@@ -21,7 +21,7 @@ const theme = createMuiTheme({
       contrastText: '#fff',
     },
     background: {
-      default: "#f4f4f4"
+      default: "#E9EBEE"
     }
   },
   overrides: {

@@ -5,16 +5,21 @@ import { Link, withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
-import ReceiptIcon from '@material-ui/icons/Receipt';
-import DateRangeIcon from '@material-ui/icons/DateRange';
-import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOnOutlined';
+import ReceiptIcon from '@material-ui/icons/ReceiptOutlined';
+import DateRangeIcon from '@material-ui/icons/DateRangeOutlined';
+import NotificationsNoneIcon from '@material-ui/icons/NotificationsNoneOutlined';
 import Badge from '@material-ui/core/Badge';
+import grey from '@material-ui/core/colors/grey';
 
 const styles = {
   root: {
+    backgroundColor: grey[800],
     width: '100%',
   },
+  action: {
+    color: '#f0f0f0',
+  }
 };
 
 class MobileNavigation extends Component {
@@ -54,26 +59,29 @@ class MobileNavigation extends Component {
       <BottomNavigation
         value={value}
         onChange={this.handleChange}
-        showLabels
+        showLabels 
         className={classes.root}
       >
         <BottomNavigationAction 
           component={Link}
           to="/dashboard/proximos"
-          label="Jugar" 
+          label="Juegos" 
           icon={<MonetizationOnIcon />} 
+          className={classes.action}
         />
         <BottomNavigationAction 
           component={Link}
           to="/dashboard/boletos"
           label="Boletos" 
           icon={<ReceiptIcon />} 
+          className={classes.action}
         />
         <BottomNavigationAction 
           component={Link}
           to="/dashboard/resultados"
           label="Resultados" 
           icon={<DateRangeIcon />} 
+          className={classes.action}
         />
         <BottomNavigationAction
           component={Link}
@@ -84,6 +92,7 @@ class MobileNavigation extends Component {
               <NotificationsNoneIcon />
             </Badge>
           } 
+          className={classes.action}
         />
   
       </BottomNavigation>

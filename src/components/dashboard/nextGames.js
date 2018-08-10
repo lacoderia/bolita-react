@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 
 import { withStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -15,28 +19,38 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
-import FolderIcon from '@material-ui/icons/Folder';
 import nextGamesMock from './nextGamesConstant';
 
 const styles = theme => ({
-  content: {
-    backgroundColor: theme.palette.background.default,
-    padding: theme.spacing.unit * 1,
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
   },
-  cardContent: {
-    padding: '8px !important'
+  heading: {
+    backgroundColor: theme.palette.primary.main,
+    marginTop: '-2px',
+    paddingBottom: '8px',
+    zIndex: theme.zIndex.appBar + 1
+  },
+  headingText: {
+    color: 'white',
+  },
+  content: {
+    paddingBottom: theme.spacing.unit * 1,
+    paddingTop: theme.spacing.unit * 1,
+  },
+  card: {
+    backgroundColor: 'white',
+  },
+  action: {
+    right: '16px'
   },
   playContent: {
-    padding: '8px 16px'
-  },
-  title: {
-    margin: `8px 8px ${theme.spacing.unit * 2}px`,
+    padding: '8px 16px',
   },
   actions: {
     display: 'flex',
-  },
-  playButton: {
-    marginLeft: 'auto',
   },
 });
 
@@ -99,153 +113,150 @@ class NextGames extends Component {
     const { view } = this.state;
 
     return(
-      <Grid 
-        container 
-        direction="column"
-        spacing={8}
-        className={classes.content}
-      >
+      <div className={classes.root}>
+        <div className={classes.heading}>
+          <Typography variant="caption" align="center" className={classes.headingText}>
+          Juega uno de los próximos sorteos
+          </Typography>
+        </div>
         { view == "nextGames" && (
-          <Grid item>
-            <Typography variant="title" className={classes.title}>
-              Próximos juegos
-            </Typography>
-            <Card>
-              <CardContent>
-                <List>
-                  { nextGamesMock.map((item) => {
-                      return(
-                        <ListItem key={item.id}>
-                          <ListItemAvatar>
-                            <Avatar src={item.img} />
-                          </ListItemAvatar>
-                          <ListItemText
-                            primary={item.type}
-                            secondary={`${item.date} - ${item.time}`}
-                          />
-                          <ListItemSecondaryAction>
-                            <Button 
-                              variant="outlined" 
-                              color="primary" 
-                              size="small"
-                              onClick={this.showPlayView}
-                            >
-                              Jugar
-                            </Button>
-                          </ListItemSecondaryAction>
-                        </ListItem>
-                      )
-                    })
-                  }
-                </List>
-              </CardContent>
-            </Card>
+          <Grid container direction="column" spacing={8} className={classes.content}
+          >
+            { nextGamesMock.map((item) => {
+              return(
+                <Grid item xs={12} md={6}>
+                  <div className={classes.card}>
+                    <List>
+                      <ListItem key={item.id}>
+                        <ListItemAvatar>
+                          <Avatar src={item.img} />
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={item.type}
+                          secondary={`${item.date} - ${item.time}`}
+                        />
+                        <ListItemSecondaryAction className={classes.action}>
+                          <Button 
+                            variant="outlined" 
+                            color="primary" 
+                            size="small"
+                            onClick={this.showPlayView}
+                          >
+                            Jugar
+                          </Button>
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                    </List>
+                  </div>
+                </Grid>
+              )
+            })}
           </Grid>
         )}
-        { view == 'play' && (
-          <React.Fragment>
-            <Grid item>
-              <Card>
-                <CardContent className={classes.cardContent}>
-                  <ListItem>
-                    <ListItemAvatar>
-                      <Avatar src="/images/logo-tris.gif" />
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary="Tris"
-                      secondary="17 ago - 20:00"
-                    />
-                  </ListItem>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item >
-              <Card>
-                <CardContent className={classes.cardContent}>
-                  <div className={classes.playContent}>
-                    <Typography variant="subheading" className={classes.title}>
-                      Elige tu jugada
-                    </Typography>
-                    <TextField
-                      id="select-currency"
-                      select
-                      label="Apuesta"
-                      className={classes.textField}
-                      value={this.state.playType}
-                      onChange={this.handleChange('playType')}
-                      SelectProps={{
-                        MenuProps: {
-                          className: classes.menu,
-                        },
-                      }}
-                      margin="normal"
-                    >
-                      {playTypes.map(option => (
-                        <MenuItem key={option.value} value={option.value}>
-                          {option.label}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                    <TextField
-                      id="number"
-                      label="Número"
-                      value={this.state.age}
-                      onChange={this.handleChange('number')}
-                      type="number"
-                      className={classes.textField}
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                      margin="normal"
-                    />
-                    <TextField
-                      id="number"
-                      label="Cantidad"
-                      value={this.state.age}
-                      onChange={this.handleChange('amount')}
-                      type="number"
-                      className={classes.textField}
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                      margin="normal"
-                    />
-                    <Typography variant="subheading" className={classes.title}>
-                      Puedes ganar $50,000
-                    </Typography>
-                    
-                  </div>
-                </CardContent>
-                <CardActions className={classes.actions} disableActionSpacing>
-                    <Typography variant="subheading" className={classes.title}>
-                      Total: $5
-                    </Typography>
-                    <Button 
-                      variant="outlined" 
-                      color="primary" 
-                      size="small"
-                      onClick={this.showSummaryView}
-                    >
-                      Jugar
-                    </Button>
-                </CardActions>
-              </Card>
-            </Grid>
-          </React.Fragment>
-        )}
-        { view == 'summary' && (
-          <React.Fragment>
-          </React.Fragment>
-        )}
-        { view == 'payment' && (
-          <React.Fragment>
-            <Grid item>
-              <Card>
-              </Card>
-            </Grid>
-          </React.Fragment>
-        )}
-      </Grid>
+          { view == 'play' && (
+            <React.Fragment>
+              <Grid item>
+                <Card>
+                  <CardContent>
+                    <ListItem>
+                      <ListItemAvatar>
+                        <Avatar src="/images/logo-tris.gif" />
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary="Tris"
+                        secondary="17 ago - 20:00"
+                      />
+                    </ListItem>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid item >
+                <Card>
+                  <CardContent>
+                    <div className={classes.playContent}>
+                      <Typography variant="subheading">
+                        Elige tu jugada
+                      </Typography>
+                      <TextField
+                        id="select-currency"
+                        select
+                        label="Apuesta"
+                        className={classes.textField}
+                        value={this.state.playType}
+                        onChange={this.handleChange('playType')}
+                        SelectProps={{
+                          MenuProps: {
+                            className: classes.menu,
+                          },
+                        }}
+                        margin="normal"
+                      >
+                        {playTypes.map(option => (
+                          <MenuItem key={option.value} value={option.value}>
+                            {option.label}
+                          </MenuItem>
+                        ))}
+                      </TextField>
+                      <TextField
+                        id="number"
+                        label="Número"
+                        value={this.state.age}
+                        onChange={this.handleChange('number')}
+                        type="number"
+                        className={classes.textField}
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        margin="normal"
+                      />
+                      <TextField
+                        id="number"
+                        label="Cantidad"
+                        value={this.state.age}
+                        onChange={this.handleChange('amount')}
+                        type="number"
+                        className={classes.textField}
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        margin="normal"
+                      />
+                      <Typography variant="subheading">
+                        Puedes ganar $50,000
+                      </Typography>
+                      
+                    </div>
+                  </CardContent>
+                  <CardActions className={classes.actions} disableActionSpacing>
+                      <Typography variant="subheading">
+                        Total: $5
+                      </Typography>
+                      <Button 
+                        variant="outlined" 
+                        color="primary" 
+                        size="small"
+                        onClick={this.showSummaryView}
+                      >
+                        Jugar
+                      </Button>
+                  </CardActions>
+                </Card>
+              </Grid>
+            </React.Fragment>
+          )}
+          { view == 'summary' && (
+            <React.Fragment>
+            </React.Fragment>
+          )}
+          { view == 'payment' && (
+            <React.Fragment>
+              <Grid item>
+                <Card>
+                </Card>
+              </Grid>
+            </React.Fragment>
+          )}
+      </div>
     )
   }
   

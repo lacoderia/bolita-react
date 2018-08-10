@@ -27,11 +27,15 @@ const styles = theme => ({
   },
   profile: {
     alignItems: 'center',
+    backgroundColor: theme.palette.primary.main,
+    color: 'white',
     display: 'flex',
     padding: theme.spacing.unit * 2 + 'px',
   },
   avatar: {
-    marginRight: theme.spacing.unit * 3
+    marginRight: theme.spacing.unit * 3,
+    height: '50px',
+    width: '50px'
   },
 });
 
@@ -51,11 +55,8 @@ class Menu extends Component {
             <StarIcon />
           </Avatar>
           <div>
-            <Typography variant="body2">
+            <Typography variant="subheading">
               Ricardo
-            </Typography>
-            <Typography variant="body1">
-              rosas_schultz@hotmail.com
             </Typography>
           </div>
         </div>
@@ -75,7 +76,7 @@ class Menu extends Component {
           </ListItem>
           <ListItem button>
             <ListItemIcon>
-              <DraftsIcon />
+              <ExitToApp />
             </ListItemIcon>
             <ListItemText primary="Cerrar sesión" />
           </ListItem>
