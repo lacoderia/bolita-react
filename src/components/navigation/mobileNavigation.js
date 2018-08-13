@@ -14,7 +14,7 @@ import grey from '@material-ui/core/colors/grey';
 
 const styles = {
   root: {
-    backgroundColor: grey[800],
+    backgroundColor: 'black',
     width: '100%',
   },
   action: {

@@ -15,10 +15,10 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
-import StarIcon from '@material-ui/icons/Star';
+import EditIcon from '@material-ui/icons/EditOutlined';
 import ExitToApp from '@material-ui/icons/ExitToApp';
 
-const drawerWidth = 240;
+const drawerWidth = 300;
 
 const styles = theme => ({
   drawerPaper: {
@@ -26,16 +26,27 @@ const styles = theme => ({
     maxWidth: drawerWidth,
   },
   profile: {
-    alignItems: 'center',
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: 'black',
     color: 'white',
     display: 'flex',
+    flexDirection: 'column',
     padding: theme.spacing.unit * 2 + 'px',
   },
+  profileText: {
+    color: 'white',
+  },
+  profileTextContainer: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  editIcon: {
+    marginLeft: 'auto',
+  },
   avatar: {
-    marginRight: theme.spacing.unit * 3,
-    height: '50px',
-    width: '50px'
+    marginBottom: '16px',
+    marginRight: '16px',
+    height: '60px',
+    width: '60px'
   },
 });
 
@@ -51,13 +62,17 @@ class Menu extends Component {
     const drawer = (
       <div>
         <div className={classes.profile}>
-          <Avatar className={classes.avatar}>
-            <StarIcon />
-          </Avatar>
-          <div>
-            <Typography variant="subheading">
-              Ricardo
-            </Typography>
+          <Avatar src="/images/avatar.jpeg" className={classes.avatar}/>
+          <div className={classes.profileTextContainer}>
+            <div>
+              <Typography variant="body2" className={classes.profileText}>
+                Ricardo
+              </Typography>
+              <Typography variant="body1" noWrap className={classes.profileText}>
+                rosas_schultz@hotmail.com
+              </Typography>
+            </div>
+            <EditIcon className={classes.editIcon}/>
           </div>
         </div>
         <Divider />

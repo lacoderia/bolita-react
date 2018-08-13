@@ -124,7 +124,7 @@ class NextGames extends Component {
           >
             { nextGamesMock.map((item) => {
               return(
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12} md={6} key={item.id}>
                   <div className={classes.card}>
                     <List>
                       <ListItem key={item.id}>
