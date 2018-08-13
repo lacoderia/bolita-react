@@ -30,21 +30,21 @@ const styles = theme => ({
   heading: {
     backgroundColor: theme.palette.primary.main,
     marginTop: '-2px',
-    paddingBottom: '8px',
+    paddingBottom: theme.spacing.unit,
     zIndex: theme.zIndex.appBar + 1
   },
   headingText: {
     color: 'white',
   },
   content: {
-    paddingBottom: theme.spacing.unit * 1,
-    paddingTop: theme.spacing.unit * 1,
+    paddingBottom: theme.spacing.unit,
+    paddingTop: theme.spacing.unit,
   },
   card: {
     backgroundColor: 'white',
   },
   title: {
-    margin: `8px 8px ${theme.spacing.unit * 2}px`,
+    margin: `${theme.spacing.unit}px ${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
   },
 });
 

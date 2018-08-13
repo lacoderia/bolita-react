@@ -27,7 +27,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper,
   },
   title: {
-    margin: `0px 0 ${theme.spacing.unit * 2}px`,
+    margin: `0 0 ${theme.spacing.unit * 2}px`,
   },
 });
 

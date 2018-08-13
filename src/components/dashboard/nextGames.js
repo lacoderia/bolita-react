@@ -30,24 +30,24 @@ const styles = theme => ({
   heading: {
     backgroundColor: theme.palette.primary.main,
     marginTop: '-2px',
-    paddingBottom: '8px',
-    zIndex: theme.zIndex.appBar + 1
+    paddingBottom: theme.spacing.unit,
+    zIndex: theme.zIndex.appBar + 1,
   },
   headingText: {
     color: 'white',
   },
   content: {
-    paddingBottom: theme.spacing.unit * 1,
-    paddingTop: theme.spacing.unit * 1,
+    paddingBottom: theme.spacing.unit,
+    paddingTop: theme.spacing.unit,
   },
   card: {
     backgroundColor: 'white',
   },
   action: {
-    right: '16px'
+    right: theme.spacing.unit * 2,
   },
   playContent: {
-    padding: '8px 16px',
+    padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
   },
   actions: {
     display: 'flex',
