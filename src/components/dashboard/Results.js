@@ -94,7 +94,7 @@ class Results extends Component {
         <Grid container spacing={8} className={classes.content}>
           { results.map(item => {
             return(
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} md={6} key={item.id}>
                 <div className={classes.card}>
                   <List>
                     <ListItem key={item.id}>

@@ -3,37 +3,59 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-import FolderIcon from '@material-ui/icons/Folder';
 import Star from '@material-ui/icons/Star';
 import StarBorder from '@material-ui/icons/StarBorder';
 import results from './resultsConstant';
 
 const styles = theme => ({
-  content: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
-    padding: theme.spacing.unit * 3,
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%'
   },
-  demo: {
-    backgroundColor: theme.palette.background.paper,
+  tab: {
+    backgroundColor: 'white',
+    textTransform: 'none',
+  },
+  heading: {
+    backgroundColor: theme.palette.primary.main,
+    marginTop: '-2px',
+    paddingBottom: theme.spacing.unit,
+    zIndex: theme.zIndex.appBar + 1
+  },
+  headingText: {
+    color: 'white',
+  },
+  content: {
+    paddingBottom: theme.spacing.unit,
+    paddingTop: theme.spacing.unit,
+  },
+  card: {
+    backgroundColor: 'white',
   },
   title: {
-    margin: `0 0 ${theme.spacing.unit * 2}px`,
+    margin: `${theme.spacing.unit}px ${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
   },
 });
 
 class Tickets extends Component {
   state = {
+    tab: 0,
     results: results
+  };
+
+  handleTabChange = (event, value) => {
+    this.setState({ value });
   };
 
   toggleFavorite = gameId => {
@@ -51,21 +73,34 @@ class Tickets extends Component {
     const { classes } = this.props;
 
     return(
-      <Grid container spacing={16} className={classes.content}>
-        <Grid item xs={12} md={6}>
-          <Typography variant="title" className={classes.title}>
-            Resultados
+      <div className={classes.root}>
+        <div className={classes.heading}>
+          <Typography variant="caption" align="center" className={classes.headingText}>
+            Consulta los resultados de los últimos sorteos
           </Typography>
-          <Card>
-            <CardContent>
-              <List>
-                { results.map(item => {
-                  return(
+        </div>
+        <AppBar position="static" color="default">
+          <Tabs
+            value={this.state.tab}
+            onChange={this.handleTabChange}
+            indicatorColor="primary"
+            textColor="primary"
+            fullWidth
+          >
+            <Tab label="Activos" className={classes.tab}/>
+            <Tab label="Todos" className={classes.tab}/>
+            <Tab label="Ganadores" className={classes.tab}/>
+          </Tabs>
+        </AppBar>
+        <Grid container spacing={8} className={classes.content}>
+          { results.map(item => {
+            return(
+              <Grid item xs={12} md={6} key={item.id}>
+                <div className={classes.card}>
+                  <List>
                     <ListItem key={item.id}>
                       <ListItemAvatar>
-                        <Avatar>
-                          <FolderIcon />
-                        </Avatar>
+                        <Avatar src={item.img} />
                       </ListItemAvatar>
                       <ListItemText
                         primary={item.type}
@@ -73,19 +108,18 @@ class Tickets extends Component {
                       />
                       <ListItemSecondaryAction>
                         <IconButton aria-label="Marcar como favorito" onClick={() => this.toggleFavorite(item.id)}>
-                          {item.favorite && <Star />}
-                          {!item.favorite && <StarBorder />}
+                          {item.favorite && <Star style={{color: '#ffcf33'}}/>}
+                          {!item.favorite && <StarBorder style={{color: '#ffcf33'}}/>}
                         </IconButton>
                       </ListItemSecondaryAction>
                     </ListItem>
-                  )
-                })
-              }
-              </List>
-            </CardContent>
-          </Card>
+                  </List>
+                </div>
+              </Grid>
+            )
+          })}
         </Grid>
-      </Grid>
+      </div>
     )
   }
   
