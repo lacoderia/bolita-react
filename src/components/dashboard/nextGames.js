@@ -230,8 +230,8 @@ class NextGames extends Component {
                             <Avatar src={item.img} />
                           </ListItemAvatar>
                           <ListItemText
-                            primary={item.type}
-                            secondary={`${item.date} - ${item.time}`}
+                            primary={`${item.type}`}
+                            secondary={`${item.time}`}
                           />
                           <ListItemSecondaryAction className={classes.action}>
                             <Button 
@@ -267,8 +267,8 @@ class NextGames extends Component {
                         <Avatar src="/images/logo-tris.gif" />
                       </ListItemAvatar>
                       <ListItemText
-                        primary="Tris"
-                        secondary="17 ago - 20:00"
+                        primary="Tris - Medio día"
+                        secondary="16 de agosto"
                       />
                     </ListItem>
                     <Divider />

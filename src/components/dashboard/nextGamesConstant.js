@@ -1,38 +1,39 @@
 const nextGames = [
   {
     id: 1,
-    type: 'Tris',
+    type: 'Tris - Medio día',
     img: '/images/logo-tris.gif',
     date: '10 ago',
-    time: '13:00',
+    time: 'a las 13:00',
   },
   {
     id: 2,
-    type: 'Tris',
+    type: 'Tris - De las tres',
     img: '/images/logo-tris.gif',
     date: '10 ago',
-    time: '15:00',
+    time: 'a las 15:00',
   },
   {
     id: 3,
-    type: 'Loteria Nacional',
-    img: '/images/logo-ln.gif',
+    type: 'Tris - Extra',
+    img: '/images/logo-tris.gif',
     date: '17 ago',
-    time: '20:00',
+    time: 'a las 19:00',
   },
   {
     id: 4,
-    type: 'Tris',
+    type: 'Tris - Clásico',
     img: '/images/logo-tris.gif',
     date: '17 ago',
-    time: '19:00',
+    time: 'a las 21:15',
   },
   {
     id: 5,
     type: 'Loteria Nacional',
+    subtype: '',
     img: '/images/logo-ln.gif',
     date: '24 ago',
-    time: '20:00',
+    time: 'en 2 días',
   }
 ];
 
