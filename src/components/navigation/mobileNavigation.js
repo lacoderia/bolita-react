@@ -10,7 +10,6 @@ import ReceiptIcon from '@material-ui/icons/ReceiptOutlined';
 import DateRangeIcon from '@material-ui/icons/DateRangeOutlined';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNoneOutlined';
 import Badge from '@material-ui/core/Badge';
-import grey from '@material-ui/core/colors/grey';
 
 const styles = {
   root: {

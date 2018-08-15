@@ -17,8 +17,22 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import MenuItem from '@material-ui/core/MenuItem';
-import nextGamesMock from './nextGamesConstant';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import grey from '@material-ui/core/colors/grey';
 import classNames from 'classnames';
+
+import nextGamesMock from './nextGamesConstant';
+
+const CustomTableCell = withStyles(theme => ({
+  head: {
+    backgroundColor: '#ff6f00',
+    color: theme.palette.common.white,
+  },
+}))(TableCell);
 
 const styles = theme => ({
   root: {
@@ -46,11 +60,22 @@ const styles = theme => ({
     right: theme.spacing.unit * 2,
   },
   padding16: {
-    padding: `${theme.spacing.unit * 2}px`,
+    padding: theme.spacing.unit * 2,
+  },
+  paddingTop16: {
+    paddingTop: theme.spacing.unit * 2,
+  },
+  playFooter: {
+    textAlign: 'right',
+  },
+  tableHead: {
+    height: 48,
   },
   total: {
     display: 'flex',
-    alignItems: 'center',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
   },
   totalText: {
     color: theme.palette.primary.main,
@@ -87,6 +112,21 @@ const playTypes = [
     label: 'Final',
   },
 ];
+
+const plays = [
+  {
+    id: 1,
+    type: 'Directa 3',
+    number: '854',
+    amount: '$2'
+  },
+  {
+    id: 2,
+    type: 'Par final',
+    number: '29',
+    amount: '$5'
+  }
+]
 
 class NextGames extends Component {
 
@@ -219,7 +259,7 @@ class NextGames extends Component {
                         className={classes.margin}
                         margin="normal"
                       >
-                        <InputLabel htmlFor="adornment-amount">Cantidad</InputLabel>
+                        <InputLabel htmlFor="adornment-amount">Importe</InputLabel>
                         <Input
                           id="adornment-amount"
                           value={this.state.amount}
@@ -234,8 +274,7 @@ class NextGames extends Component {
                         Podrías ganar $50,000
                       </Typography>
                     </div>
-                    <div className={classNames(classes.padding16, classes.total)}>
-                      <div className={classes.totalText}></div>
+                    <div className={classNames(classes.padding16, classes.playFooter)}>
                       <Button 
                         variant="contained" 
                         color="primary" 
@@ -270,9 +309,41 @@ class NextGames extends Component {
                       />
                     </ListItem>
                     <Divider />
-                    <div className={classes.padding16}>
-                      
-                    </div>  
+                    <div className={classes.paddingTop16}>
+                      <Table className={classes.table}>
+                        <TableHead>
+                          <TableRow className={classes.tableHead}>
+                            <CustomTableCell>Apuesta</CustomTableCell>
+                            <CustomTableCell numeric>Número</CustomTableCell>
+                            <CustomTableCell numeric>Importe</CustomTableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {plays.map(row => {
+                            return (
+                              <TableRow className={classes.row} key={row.id}>
+                                <CustomTableCell>{row.type}</CustomTableCell>
+                                <CustomTableCell numeric>{row.number}</CustomTableCell>
+                                <CustomTableCell numeric>{row.amount}</CustomTableCell>
+                              </TableRow>
+                            );
+                          })}
+                        </TableBody>
+                      </Table>
+                    </div>
+                    <div className={classNames(classes.padding16, classes.total)}>
+                      <Typography variant="subheading" gutterBottom className={classes.totalText}>
+                        Total a pagar $7
+                      </Typography>
+                      <Button 
+                        variant="contained" 
+                        color="primary" 
+                        size="medium"
+                        onClick={this.showPaymentView}
+                      >
+                        Pagar
+                      </Button>
+                    </div>
                   </div>
                 </Grid>
               </Grid>

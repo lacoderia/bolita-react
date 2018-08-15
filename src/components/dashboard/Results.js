@@ -23,10 +23,6 @@ const styles = theme => ({
     flexDirection: 'column',
     width: '100%'
   },
-  tab: {
-    backgroundColor: 'white',
-    textTransform: 'none',
-  },
   heading: {
     backgroundColor: theme.palette.primary.main,
     marginTop: '-2px',
@@ -36,15 +32,16 @@ const styles = theme => ({
   headingText: {
     color: 'white',
   },
+  tab: {
+    backgroundColor: 'white',
+    textTransform: 'none',
+  },
   content: {
     paddingBottom: theme.spacing.unit,
     paddingTop: theme.spacing.unit,
   },
   card: {
     backgroundColor: 'white',
-  },
-  title: {
-    margin: `${theme.spacing.unit}px ${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
   },
 });
 
