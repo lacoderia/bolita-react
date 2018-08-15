@@ -28,7 +28,9 @@ class MobileNavigation extends Component {
   };
 
   handleChange = (event, value) => {
-    this.setState({ value });
+    if (value != 3) {
+      this.setState({ value });
+    }
   };
 
   componentDidMount() {
@@ -83,8 +85,6 @@ class MobileNavigation extends Component {
           className={classes.action}
         />
         <BottomNavigationAction
-          component={Link}
-          to="/dashboard/notificaciones" 
           label="Notificaciones" 
           icon={
             <Badge className={classes.margin} badgeContent={4} color="secondary">
