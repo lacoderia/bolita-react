@@ -55,6 +55,7 @@ const styles = theme => ({
     textTransform: 'none',
   },
   content: {
+    overflowY: 'auto',
     paddingBottom: theme.spacing.unit,
     paddingTop: theme.spacing.unit,
   },

@@ -10,15 +10,14 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Divider from '@material-ui/core/Divider';
-import List from '@material-ui/core/List';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import tickets from './ticketsConstant';
 
 const styles = theme => ({
@@ -41,6 +40,7 @@ const styles = theme => ({
     textTransform: 'none',
   },
   content: {
+    overflowY: 'auto',
     paddingBottom: theme.spacing.unit,
     paddingTop: theme.spacing.unit,
   },
@@ -56,8 +56,29 @@ const styles = theme => ({
   },
   expansionPanelSummary: {
     padding: 0,
+  },
+  expansionPanelContent: {
+    margin: `${theme.spacing.unit}px 0`,
+  },
+  expansionPanelDetails: {
+    padding: 0,
   }
 });
+
+const plays = [
+  {
+    id: 1,
+    type: 'Directa 3',
+    number: '854',
+    amount: '$2'
+  },
+  {
+    id: 2,
+    type: 'Par final',
+    number: '29',
+    amount: '$5'
+  }
+]
 
 class Tickets extends Component {
   state = {
@@ -111,27 +132,38 @@ class Tickets extends Component {
                   >
                     <ExpansionPanelSummary 
                       expandIcon={<ExpandMoreIcon />}
+                      classes={{
+                        content: classes.expansionPanelContent
+                      }}
                       className={classes.expansionPanelSummary}
                     >
-                        <ListItem key={item.id}>
-                          <ListItemAvatar>
-                            <Avatar src={item.img} />
-                          </ListItemAvatar>
-                          <ListItemText
-                            primary={item.type}
-                            secondary={item.time}
-                          />
-                          <Typography variant="body1">
-                                {item.bets}
-                              </Typography>
-                        </ListItem>
+                      <ListItem key={item.id}>
+                        <ListItemAvatar>
+                          <Avatar src={item.img} />
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={item.type}
+                          secondary={item.time}
+                        />
+                        <Typography variant="body1" style={{marginRight: '24px'}}>
+                          {item.bets}
+                        </Typography>
+                      </ListItem>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
-                      <Divider />
-                      <Typography>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-                        sit amet blandit leo lobortis eget.
-                      </Typography>
+                      <Table className={classes.table}>
+                        <TableBody>
+                          {plays.map(row => {
+                            return (
+                              <TableRow className={classes.row} key={row.id}>
+                                <TableCell>{row.type}</TableCell>
+                                <TableCell numeric>{row.number}</TableCell>
+                                <TableCell numeric>{row.amount}</TableCell>
+                              </TableRow>
+                            );
+                          })}
+                        </TableBody>
+                      </Table>
                     </ExpansionPanelDetails>
                   </ExpansionPanel>
 

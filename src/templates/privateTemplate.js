@@ -11,7 +11,7 @@ const styles = theme => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    minHeight: '100vh',
+    height: '100vh',
     width: '100%',
   },
   toolbar: theme.mixins.toolbar,
