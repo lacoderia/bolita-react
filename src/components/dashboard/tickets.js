@@ -57,8 +57,8 @@ class Tickets extends Component {
     tickets: tickets
   };
 
-  handleTabChange = (event, value) => {
-    this.setState({ value });
+  handleTabChange = (event, tab) => {
+    this.setState({ tab });
   };
 
   render() {

@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import SwipeableViews from 'react-swipeable-views';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -58,8 +59,8 @@ class Results extends Component {
     results: results
   };
 
-  handleTabChange = (event, value) => {
-    this.setState({ value });
+  handleTabChange = (event, tab) => {
+    this.setState({ tab });
   };
 
   toggleFavorite = gameId => {
@@ -74,7 +75,7 @@ class Results extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, theme } = this.props;
 
     return(
       <div className={classes.root}>
@@ -95,42 +96,79 @@ class Results extends Component {
             <Tab label="Favoritos" className={classes.tab}/>
           </Tabs>
         </AppBar>
-        <Grid container spacing={8} className={classes.content}>
-          { results.map(item => {
-            return(
-              <Grid item xs={12} md={6} key={item.id}>
-                <div className={classes.card}>
-                  <List>
-                    <ListItem key={item.id}>
-                      <ListItemAvatar>
-                        <Avatar src={item.img} />
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary={item.type}
-                        secondary={item.time}
-                      />
-                      <ListItemSecondaryAction>
-                        <div className={classes.resultActions}>
-                          <Typography variant="subheading" className={classes.resultActionsText}>
-                            {item.result}
-                          </Typography>
-                          <IconButton aria-label="Marcar como favorito" onClick={() => this.toggleFavorite(item.id)}>
-                            {item.favorite && <StarIcon style={{color: '#ffcf33'}}/>}
-                            {!item.favorite && <StarBorderIcon style={{color: '#ffcf33'}}/>}
-                          </IconButton>
-                        </div>
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                  </List>
-                </div>
-              </Grid>
-            )
-          })}
-        </Grid>
+        <SwipeableViews
+          axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+          index={this.state.tab}
+          onChangeIndex={this.handleChangeIndex}
+        >
+          <Grid container spacing={8} className={classes.content}>
+            { results.map(item => {
+              return(
+                <Grid item xs={12} md={6} key={item.id}>
+                  <div className={classes.card}>
+                    <List>
+                      <ListItem key={item.id}>
+                        <ListItemAvatar>
+                          <Avatar src={item.img} />
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={item.type}
+                          secondary={item.time}
+                        />
+                        <ListItemSecondaryAction>
+                          <div className={classes.resultActions}>
+                            <Typography variant="subheading" className={classes.resultActionsText}>
+                              {item.result}
+                            </Typography>
+                            <IconButton aria-label="Marcar como favorito" onClick={() => this.toggleFavorite(item.id)}>
+                              {item.favorite && <StarIcon style={{color: '#ffcf33'}}/>}
+                              {!item.favorite && <StarBorderIcon style={{color: '#ffcf33'}}/>}
+                            </IconButton>
+                          </div>
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                    </List>
+                  </div>
+                </Grid>
+              )
+            })}
+          </Grid>
+          <Grid container spacing={8} className={classes.content}>
+            { results.slice(0,2).map(item => {
+              return(
+                <Grid item xs={12} md={6} key={item.id}>
+                  <div className={classes.card}>
+                    <List>
+                      <ListItem key={item.id}>
+                        <ListItemAvatar>
+                          <Avatar src={item.img} />
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={item.type}
+                          secondary={item.time}
+                        />
+                        <ListItemSecondaryAction>
+                          <div className={classes.resultActions}>
+                            <Typography variant="subheading" className={classes.resultActionsText}>
+                              {item.result}
+                            </Typography>
+                            <IconButton aria-label="Marcar como favorito" onClick={() => this.toggleFavorite(item.id)}>
+                              <StarIcon style={{color: '#ffcf33'}} />
+                            </IconButton>
+                          </div>
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                    </List>
+                  </div>
+                </Grid>
+              )
+            })}
+          </Grid>
+        </SwipeableViews>
       </div>
     )
   }
   
 };
 
-export default withStyles(styles)(Results);
+export default withStyles(styles, { withTheme: true })(Results);
