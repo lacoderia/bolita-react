@@ -13,19 +13,14 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-import Star from '@material-ui/icons/Star';
-import StarBorder from '@material-ui/icons/StarBorder';
-import results from './resultsConstant';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutlineOutlined';
+import tickets from './ticketsConstant';
 
 const styles = theme => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
     width: '100%'
-  },
-  tab: {
-    backgroundColor: 'white',
-    textTransform: 'none',
   },
   heading: {
     backgroundColor: theme.palette.primary.main,
@@ -36,6 +31,10 @@ const styles = theme => ({
   headingText: {
     color: 'white',
   },
+  tab: {
+    backgroundColor: 'white',
+    textTransform: 'none',
+  },
   content: {
     paddingBottom: theme.spacing.unit,
     paddingTop: theme.spacing.unit,
@@ -43,31 +42,24 @@ const styles = theme => ({
   card: {
     backgroundColor: 'white',
   },
-  title: {
-    margin: `${theme.spacing.unit}px ${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
+  cardActions: {
+    display: 'flex',
+    alignItems: 'center',
   },
+  cardActionsButton: {
+    color: theme.palette.primary.main,
+  }
 });
 
 class Tickets extends Component {
   state = {
     tab: 0,
-    results: results
+    tickets: tickets
   };
 
   handleTabChange = (event, value) => {
     this.setState({ value });
   };
-
-  toggleFavorite = gameId => {
-    const resultsTemp = [...this.state.results];
-    const selectedResult = resultsTemp.find(item => item.id === gameId);
-    if (selectedResult) {
-      selectedResult.favorite =  !selectedResult.favorite;
-    }
-    this.setState({
-      results: resultsTemp
-    });
-  }
 
   render() {
     const { classes } = this.props;
@@ -76,7 +68,7 @@ class Tickets extends Component {
       <div className={classes.root}>
         <div className={classes.heading}>
           <Typography variant="caption" align="center" className={classes.headingText}>
-            Consulta los resultados de los últimos sorteos
+            Consulta tus boletos
           </Typography>
         </div>
         <AppBar position="static" color="default">
@@ -93,7 +85,7 @@ class Tickets extends Component {
           </Tabs>
         </AppBar>
         <Grid container spacing={8} className={classes.content}>
-          { results.map(item => {
+          { tickets.map(item => {
             return(
               <Grid item xs={12} md={6} key={item.id}>
                 <div className={classes.card}>
@@ -104,13 +96,17 @@ class Tickets extends Component {
                       </ListItemAvatar>
                       <ListItemText
                         primary={item.type}
-                        secondary={`${item.date} - ${item.time}`}
+                        secondary={item.time}
                       />
                       <ListItemSecondaryAction>
-                        <IconButton aria-label="Marcar como favorito" onClick={() => this.toggleFavorite(item.id)}>
-                          {item.favorite && <Star style={{color: '#ffcf33'}}/>}
-                          {!item.favorite && <StarBorder style={{color: '#ffcf33'}}/>}
-                        </IconButton>
+                        <div className={classes.cardActions}>
+                          <Typography variant="body1">
+                            {item.bets}
+                          </Typography>
+                          <IconButton aria-label="Ver más" className={classes.cardActionsButton}>
+                            <AddCircleOutlineIcon />
+                          </IconButton>
+                        </div>
                       </ListItemSecondaryAction>
                     </ListItem>
                   </List>

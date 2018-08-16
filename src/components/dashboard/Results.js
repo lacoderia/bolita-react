@@ -13,8 +13,8 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-import Star from '@material-ui/icons/Star';
-import StarBorder from '@material-ui/icons/StarBorder';
+import StarIcon from '@material-ui/icons/Star';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
 import results from './resultsConstant';
 
 const styles = theme => ({
@@ -43,6 +43,13 @@ const styles = theme => ({
   card: {
     backgroundColor: 'white',
   },
+  resultActions: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  resultActionsText: {
+    fontWeight: '500',
+  }
 });
 
 class Results extends Component {
@@ -100,13 +107,18 @@ class Results extends Component {
                       </ListItemAvatar>
                       <ListItemText
                         primary={item.type}
-                        secondary={`${item.date} - ${item.time}`}
+                        secondary={item.time}
                       />
                       <ListItemSecondaryAction>
-                        <IconButton aria-label="Marcar como favorito" onClick={() => this.toggleFavorite(item.id)}>
-                          {item.favorite && <Star style={{color: '#ffcf33'}}/>}
-                          {!item.favorite && <StarBorder style={{color: '#ffcf33'}}/>}
-                        </IconButton>
+                        <div className={classes.resultActions}>
+                          <Typography variant="subheading" className={classes.resultActionsText}>
+                            {item.result}
+                          </Typography>
+                          <IconButton aria-label="Marcar como favorito" onClick={() => this.toggleFavorite(item.id)}>
+                            {item.favorite && <StarIcon style={{color: '#ffcf33'}}/>}
+                            {!item.favorite && <StarBorderIcon style={{color: '#ffcf33'}}/>}
+                          </IconButton>
+                        </div>
                       </ListItemSecondaryAction>
                     </ListItem>
                   </List>

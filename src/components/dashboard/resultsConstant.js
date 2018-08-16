@@ -1,38 +1,38 @@
 const results = [
   {
     id: 1,
-    type: 'Tris',
+    type: 'Medio día',
     img: '/images/logo-tris.gif',
     date: '10 ago',
-    time: '13:00',
-    result: '7873',
+    time: 'a las 13:00',
+    result: '27873',
     favorite: false
   },
   {
     id: 2,
-    type: 'Tris',
+    type: 'De las tres',
     img: '/images/logo-tris.gif',
     date: '10 ago',
-    time: '15:00',
-    result: '9043',
+    time: 'a las 15:00',
+    result: '19043',
     favorite: false
   },
   {
     id: 3,
-    type: 'Loteria Nacional',
-    img: '/images/logo-ln.gif',
+    type: 'Extra',
+    img: '/images/logo-tris.gif',
     date: '17 ago',
-    time: '20:00',
-    result: '1975',
+    time: 'a las 20:00',
+    result: '71975',
     favorite: false
   },
   {
     id: 4,
-    type: 'Tris',
+    type: 'Clásico',
     img: '/images/logo-tris.gif',
     date: '17 ago',
-    time: '19:00',
-    result: '2490',
+    time: 'ayer',
+    result: '42490',
     favorite: false
   },
   {
@@ -40,8 +40,8 @@ const results = [
     type: 'Loteria Nacional',
     img: '/images/logo-ln.gif',
     date: '24 ago',
-    time: '20:00',
-    result: '7913',
+    time: 'hace dos días',
+    result: '57913',
     favorite: false
   }
 ];

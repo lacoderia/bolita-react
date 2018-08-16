@@ -26,6 +26,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import CreditCardIcon from '@material-ui/icons/CreditCardOutlined';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -80,6 +81,7 @@ const styles = theme => ({
     flexDirection: 'column',
     alignItems: 'flex-end',
     justifyContent: 'center',
+    marginTop: theme.spacing.unit * 3,
   },
   totalText: {
     color: theme.palette.primary.main,
@@ -161,7 +163,7 @@ function CustomCardNumber(props) {
     <MaskedInput
       {...other}
       ref={inputRef}
-      mask={[/\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ']}
+      mask={[' ', ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ']}
       placeholderChar={'\u2000'}
     />
   );
@@ -176,6 +178,7 @@ class NextGames extends Component {
     amount: '',
     tab: 0,
     dialog: false,
+    cvv: ''
   }
 
   showPlayView = () => {
@@ -262,22 +265,26 @@ class NextGames extends Component {
               <Grid container direction="column" spacing={8} className={classes.content}>
                 <Grid item>
                   <div className={classes.card}>
-                    <ListItem>
-                      <ListItemAvatar>
-                        <Avatar src="/images/logo-tris.gif" />
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary="Tris - Medio día"
-                        secondary="16 de agosto"
-                      />
-                    </ListItem>
-                    <Divider />
+                    <List>
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar src="/images/logo-tris.gif" />
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary="Medio día"
+                          secondary="16 de agosto"
+                        />
+                      </ListItem>
+                    </List>
+                  </div>
+                </Grid>
+                <Grid item>
+                  <div className={classes.card}>
                     <div className={classes.padding16}>
                       <TextField
                         id="select-currency"
                         select
                         label="Apuesta"
-                        className={classes.textField}
                         value={this.state.playType}
                         onChange={this.handleChange('playType')}
                         SelectProps={{
@@ -293,31 +300,34 @@ class NextGames extends Component {
                           </MenuItem>
                         ))}
                       </TextField>
-                      <TextField
-                        id="number"
-                        label="Número"
-                        value={this.state.number}
-                        onChange={this.handleChange('number')}
-                        type="number"
-                        className={classes.textField}
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        margin="normal"
-                      />
-                      <FormControl 
-                        className={classes.margin}
-                        margin="normal"
-                      >
-                        <InputLabel htmlFor="adornment-amount">Importe</InputLabel>
-                        <Input
-                          id="adornment-amount"
-                          value={this.state.amount}
-                          onChange={this.handleChange('amount')}
+                      <div className={classes.twoColumns}>
+                        <TextField
+                          id="number"
+                          label="Número"
+                          value={this.state.number}
+                          onChange={this.handleChange('number')}
                           type="number"
-                          startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                          margin="normal"
+                          className={classes.twoColumnsItem}
                         />
-                      </FormControl>
+                        <FormControl 
+                          className={classes.margin}
+                          margin="normal"
+                          className={classes.twoColumnsItem}
+                        >
+                          <InputLabel htmlFor="adornment-amount">Importe</InputLabel>
+                          <Input
+                            id="adornment-amount"
+                            value={this.state.amount}
+                            onChange={this.handleChange('amount')}
+                            type="number"
+                            startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                          />
+                        </FormControl>
+                      </div>
                     </div>
                     <div className={classes.padding16}>
                       <Typography variant="subheading">
@@ -349,16 +359,21 @@ class NextGames extends Component {
               <Grid container direction="column" spacing={8} className={classes.content}>
                 <Grid item>
                   <div className={classes.card}>
-                    <ListItem>
-                      <ListItemAvatar>
-                        <Avatar src="/images/logo-tris.gif" />
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary="Tris"
-                        secondary="17 ago - 20:00"
-                      />
-                    </ListItem>
-                    <Divider />
+                    <List>
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar src="/images/logo-tris.gif" />
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary="Medio día"
+                          secondary="16 de agosto"
+                        />
+                      </ListItem>
+                    </List>
+                  </div>
+                </Grid>
+                <Grid item>
+                  <div className={classes.card}>
                     <div className={classes.paddingTop16}>
                       <Table className={classes.table}>
                         <TableHead>
@@ -430,6 +445,7 @@ class NextGames extends Component {
                           value={this.state.cardNumber}
                           onChange={this.handleChange('cardNumber')}
                           inputComponent={CustomCardNumber}
+                          startAdornment={<InputAdornment><CreditCardIcon style={{color: 'rgba(0, 0, 0, 0.54)'}}/></InputAdornment>}
                         />
                       </FormControl>
                       <div className={classes.twoColumns}>
@@ -443,20 +459,22 @@ class NextGames extends Component {
                             value={this.state.validThrough}
                             onChange={this.handleChange('validThrough')}
                             inputComponent={CustomValidThrough}
+                            placeholder="MM/AA"
                           />
                         </FormControl>
-                        <FormControl 
+                        <TextField
+                          id="cvv"
+                          label="CVV"
+                          value={this.state.cvv}
+                          onChange={this.handleChange('cvv')}
+                          type="number"
+                          placeholder="***"
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
                           margin="normal"
                           className={classes.twoColumnsItem}
-                        >
-                          <InputLabel htmlFor="adornment-cvv" shrink={true}>CVV</InputLabel>
-                          <Input
-                            id="adornment-cvv"
-                            value={this.state.cvv}
-                            onChange={this.handleChange('cvv')}
-                            type="number"
-                          />
-                        </FormControl>
+                        />
                       </div>
                     </div>
                     <div className={classNames(classes.padding16, classes.total)}>
@@ -485,11 +503,11 @@ class NextGames extends Component {
               >
                 <DialogTitle id="confirmation-dialog-title">Pago exitoso</DialogTitle>
                 <DialogContent>
-                <Typography>
+                  <Typography gutterBottom>
                     Hemos generado tu boleto. 
                   </Typography>
                   <Typography>
-                    !Mucha suerte!
+                    ¡Mucha suerte!
                   </Typography>
                 </DialogContent>
                 <DialogActions>
