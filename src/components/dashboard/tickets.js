@@ -6,6 +6,11 @@ import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
@@ -48,40 +53,50 @@ const styles = theme => ({
   },
   cardActionsButton: {
     color: theme.palette.primary.main,
+  },
+  expansionPanelSummary: {
+    padding: 0,
   }
 });
 
 class Tickets extends Component {
   state = {
     tab: 0,
-    tickets: tickets
+    expanded: null
   };
 
   handleTabChange = (event, tab) => {
     this.setState({ tab });
   };
 
+  handleExpansionChange = panel => (event, expanded) => {
+    this.setState({
+      expanded: expanded ? panel : false,
+    });
+  };
+
   render() {
     const { classes } = this.props;
+    const { tab, expanded } = this.state;
 
     return(
       <div className={classes.root}>
         <div className={classes.heading}>
           <Typography variant="caption" align="center" className={classes.headingText}>
-            Consulta tus boletos
+            Consulta tus jugadas
           </Typography>
         </div>
         <AppBar position="static" color="default">
           <Tabs
-            value={this.state.tab}
+            value={tab}
             onChange={this.handleTabChange}
             indicatorColor="primary"
             textColor="primary"
             fullWidth
           >
-            <Tab label="Activos" className={classes.tab}/>
-            <Tab label="Todos" className={classes.tab}/>
-            <Tab label="Ganadores" className={classes.tab}/>
+            <Tab label="Activas" className={classes.tab}/>
+            <Tab label="Todas" className={classes.tab}/>
+            <Tab label="Ganadoras" className={classes.tab}/>
           </Tabs>
         </AppBar>
         <Grid container spacing={8} className={classes.content}>
@@ -89,27 +104,37 @@ class Tickets extends Component {
             return(
               <Grid item xs={12} md={6} key={item.id}>
                 <div className={classes.card}>
-                  <List>
-                    <ListItem key={item.id}>
-                      <ListItemAvatar>
-                        <Avatar src={item.img} />
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary={item.type}
-                        secondary={item.time}
-                      />
-                      <ListItemSecondaryAction>
-                        <div className={classes.cardActions}>
+                  <ExpansionPanel 
+                    elevation={0}
+                    expanded={expanded === item.id} 
+                    onChange={this.handleExpansionChange(item.id)}
+                  >
+                    <ExpansionPanelSummary 
+                      expandIcon={<ExpandMoreIcon />}
+                      className={classes.expansionPanelSummary}
+                    >
+                        <ListItem key={item.id}>
+                          <ListItemAvatar>
+                            <Avatar src={item.img} />
+                          </ListItemAvatar>
+                          <ListItemText
+                            primary={item.type}
+                            secondary={item.time}
+                          />
                           <Typography variant="body1">
-                            {item.bets}
-                          </Typography>
-                          <IconButton aria-label="Ver más" className={classes.cardActionsButton}>
-                            <AddCircleOutlineIcon />
-                          </IconButton>
-                        </div>
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                  </List>
+                                {item.bets}
+                              </Typography>
+                        </ListItem>
+                    </ExpansionPanelSummary>
+                    <ExpansionPanelDetails>
+                      <Divider />
+                      <Typography>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+                        sit amet blandit leo lobortis eget.
+                      </Typography>
+                    </ExpansionPanelDetails>
+                  </ExpansionPanel>
+
                 </div>
               </Grid>
             )

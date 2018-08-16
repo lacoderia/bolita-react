@@ -504,7 +504,7 @@ class NextGames extends Component {
                 <DialogTitle id="confirmation-dialog-title">Pago exitoso</DialogTitle>
                 <DialogContent>
                   <Typography gutterBottom>
-                    Hemos generado tu boleto. 
+                    Hemos recibido tu jugada. 
                   </Typography>
                   <Typography>
                     ¡Mucha suerte!

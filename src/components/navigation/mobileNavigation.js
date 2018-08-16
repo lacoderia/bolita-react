@@ -40,7 +40,7 @@ class MobileNavigation extends Component {
       case '/dashboard/proximos':
         this.setState({value: 0});
         break;
-      case '/dashboard/boletos':
+      case '/dashboard/jugadas':
         this.setState({value: 1});
         break;
       case '/dashboard/resultados':
@@ -72,8 +72,8 @@ class MobileNavigation extends Component {
         />
         <BottomNavigationAction 
           component={Link}
-          to="/dashboard/boletos"
-          label="Boletos" 
+          to="/dashboard/jugadas"
+          label="Jugadas" 
           icon={<ReceiptIcon />} 
           className={classes.action}
         />

@@ -12,7 +12,7 @@ class DashboardView extends Component {
     return(
       <PrivateTemplate>
         <Route path="/dashboard/proximos" component={NextGames}/>
-        <Route path="/dashboard/boletos" component={Tickets}/>
+        <Route path="/dashboard/jugadas" component={Tickets}/>
         <Route path="/dashboard/resultados" component={Results}/>
       </PrivateTemplate>
     )
