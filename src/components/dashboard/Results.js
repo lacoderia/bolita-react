@@ -64,6 +64,10 @@ class Results extends Component {
     this.setState({ tab });
   };
 
+  handleChangeIndex = index => {
+    this.setState({ tab: index });
+  };
+
   toggleFavorite = gameId => {
     const resultsTemp = [...this.state.results];
     const selectedResult = resultsTemp.find(item => item.id === gameId);
