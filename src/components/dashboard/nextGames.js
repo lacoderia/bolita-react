@@ -175,7 +175,7 @@ function CustomCardNumber(props) {
 class NextGames extends Component {
 
   state = {
-    view: 'play',
+    view: 'nextGames',
     playTab: 0,
     plays: [
       {
@@ -209,9 +209,21 @@ class NextGames extends Component {
         amount: ''
       },
     ],
-    playType: 'Directa 4',
-    number: '',
-    amount: '',
+    playType1: 'Directa 4',
+    playType2: 'Directa 4',
+    playType3: 'Directa 4',
+    playType4: 'Directa 4',
+    playType5: 'Directa 4',
+    number1: '',
+    number2: '',
+    number3: '',
+    number4: '',
+    number5: '',
+    amount1: '',
+    amount2: '',
+    amount3: '',
+    amount4: '',
+    amount5: '',
     tab: 0,
     dialog: false,
     cvv: '',
@@ -280,7 +292,7 @@ class NextGames extends Component {
             </div>
             <Grid container direction="column" spacing={8} className={classes.content}
             >
-              { nextGamesMock.map(item => {
+              { nextGamesMock.map((item) => {
                 return(
                   <Grid item xs={12} md={6} key={item.id}>
                     <div className={classes.card}>
@@ -345,11 +357,11 @@ class NextGames extends Component {
                         textColor="primary"
                         fullWidth
                       >
-                        <Tab label="A" className={classes.tab}/>
-                        <Tab label="B" className={classes.tab}/>
-                        <Tab label="C" className={classes.tab}/>
-                        <Tab label="D" className={classes.tab}/>
-                        <Tab label="E" className={classes.tab}/>
+                        <Tab label="J1" className={classes.tab}/>
+                        <Tab label="J2" className={classes.tab}/>
+                        <Tab label="J3" className={classes.tab}/>
+                        <Tab label="J4" className={classes.tab}/>
+                        <Tab label="J5" className={classes.tab}/>
                       </Tabs>
                     </AppBar>
                     <SwipeableViews
@@ -357,14 +369,16 @@ class NextGames extends Component {
                       index={this.state.playTab}
                       onChangeIndex={this.handleChangeIndex}
                     >
-                      
+
+
+
                         <div className={classes.padding16}>
                           <TextField
                             id="select-currency"
                             select
                             label="Apuesta"
-                            value={this.state.playType}
-                            onChange={this.handleChange('playType')}
+                            value={this.state.playType1}
+                            onChange={this.handleChange('playType1')}
                             SelectProps={{
                               MenuProps: {
                                 className: classes.menu,
@@ -382,8 +396,8 @@ class NextGames extends Component {
                             <TextField
                               id="number"
                               label="Número"
-                              value={this.state.number}
-                              onChange={this.handleChange('number')}
+                              value={this.state.number1}
+                              onChange={this.handleChange('number1')}
                               type="number"
                               InputLabelProps={{
                                 shrink: true,
@@ -399,8 +413,220 @@ class NextGames extends Component {
                               <InputLabel htmlFor="adornment-amount">Importe</InputLabel>
                               <Input
                                 id="adornment-amount"
-                                value={this.state.amount}
-                                onChange={this.handleChange('amount')}
+                                value={this.state.amount1}
+                                onChange={this.handleChange('amount1')}
+                                type="number"
+                                startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                              />
+                            </FormControl>
+                          </div>
+                          <Typography variant="subheading" style={{marginTop: 16}}>
+                            Puedes ganar $50,000
+                          </Typography>
+                        </div>
+
+                        <div className={classes.padding16}>
+                          <TextField
+                            id="select-currency"
+                            select
+                            label="Apuesta"
+                            value={this.state.playType2}
+                            onChange={this.handleChange('playType2')}
+                            SelectProps={{
+                              MenuProps: {
+                                className: classes.menu,
+                              },
+                            }}
+                            margin="normal"
+                          >
+                            {playTypes.map(option => (
+                              <MenuItem key={option.value} value={option.value}>
+                                {option.label}
+                              </MenuItem>
+                            ))}
+                          </TextField>
+                          <div className={classes.twoColumns}>
+                            <TextField
+                              id="number"
+                              label="Número"
+                              value={this.state.number2}
+                              onChange={this.handleChange('number2')}
+                              type="number"
+                              InputLabelProps={{
+                                shrink: true,
+                              }}
+                              margin="normal"
+                              className={classes.twoColumnsItem}
+                            />
+                            <FormControl 
+                              className={classes.margin}
+                              margin="normal"
+                              className={classes.twoColumnsItem}
+                            >
+                              <InputLabel htmlFor="adornment-amount">Importe</InputLabel>
+                              <Input
+                                id="adornment-amount"
+                                value={this.state.amount2}
+                                onChange={this.handleChange('amount2')}
+                                type="number"
+                                startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                              />
+                            </FormControl>
+                          </div>
+                          <Typography variant="subheading" style={{marginTop: 16}}>
+                            Puedes ganar $50,000
+                          </Typography>
+                        </div>
+
+                        <div className={classes.padding16}>
+                          <TextField
+                            id="select-currency"
+                            select
+                            label="Apuesta"
+                            value={this.state.playType3}
+                            onChange={this.handleChange('playType3')}
+                            SelectProps={{
+                              MenuProps: {
+                                className: classes.menu,
+                              },
+                            }}
+                            margin="normal"
+                          >
+                            {playTypes.map(option => (
+                              <MenuItem key={option.value} value={option.value}>
+                                {option.label}
+                              </MenuItem>
+                            ))}
+                          </TextField>
+                          <div className={classes.twoColumns}>
+                            <TextField
+                              id="number"
+                              label="Número"
+                              value={this.state.number3}
+                              onChange={this.handleChange('number3')}
+                              type="number"
+                              InputLabelProps={{
+                                shrink: true,
+                              }}
+                              margin="normal"
+                              className={classes.twoColumnsItem}
+                            />
+                            <FormControl 
+                              className={classes.margin}
+                              margin="normal"
+                              className={classes.twoColumnsItem}
+                            >
+                              <InputLabel htmlFor="adornment-amount">Importe</InputLabel>
+                              <Input
+                                id="adornment-amount"
+                                value={this.state.amount3}
+                                onChange={this.handleChange('amount3')}
+                                type="number"
+                                startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                              />
+                            </FormControl>
+                          </div>
+                          <Typography variant="subheading" style={{marginTop: 16}}>
+                            Puedes ganar $50,000
+                          </Typography>
+                        </div>
+
+                        <div className={classes.padding16}>
+                          <TextField
+                            id="select-currency"
+                            select
+                            label="Apuesta"
+                            value={this.state.playType4}
+                            onChange={this.handleChange('playType4')}
+                            SelectProps={{
+                              MenuProps: {
+                                className: classes.menu,
+                              },
+                            }}
+                            margin="normal"
+                          >
+                            {playTypes.map(option => (
+                              <MenuItem key={option.value} value={option.value}>
+                                {option.label}
+                              </MenuItem>
+                            ))}
+                          </TextField>
+                          <div className={classes.twoColumns}>
+                            <TextField
+                              id="number"
+                              label="Número"
+                              value={this.state.number4}
+                              onChange={this.handleChange('number4')}
+                              type="number"
+                              InputLabelProps={{
+                                shrink: true,
+                              }}
+                              margin="normal"
+                              className={classes.twoColumnsItem}
+                            />
+                            <FormControl 
+                              className={classes.margin}
+                              margin="normal"
+                              className={classes.twoColumnsItem}
+                            >
+                              <InputLabel htmlFor="adornment-amount">Importe</InputLabel>
+                              <Input
+                                id="adornment-amount"
+                                value={this.state.amount4}
+                                onChange={this.handleChange('amount4')}
+                                type="number"
+                                startAdornment={<InputAdornment position="start">$</InputAdornment>}
+                              />
+                            </FormControl>
+                          </div>
+                          <Typography variant="subheading" style={{marginTop: 16}}>
+                            Puedes ganar $50,000
+                          </Typography>
+                        </div>
+
+                        <div className={classes.padding16}>
+                          <TextField
+                            id="select-currency"
+                            select
+                            label="Apuesta"
+                            value={this.state.playType5}
+                            onChange={this.handleChange('playType5')}
+                            SelectProps={{
+                              MenuProps: {
+                                className: classes.menu,
+                              },
+                            }}
+                            margin="normal"
+                          >
+                            {playTypes.map(option => (
+                              <MenuItem key={option.value} value={option.value}>
+                                {option.label}
+                              </MenuItem>
+                            ))}
+                          </TextField>
+                          <div className={classes.twoColumns}>
+                            <TextField
+                              id="number"
+                              label="Número"
+                              value={this.state.number5}
+                              onChange={this.handleChange('number5')}
+                              type="number"
+                              InputLabelProps={{
+                                shrink: true,
+                              }}
+                              margin="normal"
+                              className={classes.twoColumnsItem}
+                            />
+                            <FormControl 
+                              className={classes.margin}
+                              margin="normal"
+                              className={classes.twoColumnsItem}
+                            >
+                              <InputLabel htmlFor="adornment-amount">Importe</InputLabel>
+                              <Input
+                                id="adornment-amount"
+                                value={this.state.amount5}
+                                onChange={this.handleChange('amount5')}
                                 type="number"
                                 startAdornment={<InputAdornment position="start">$</InputAdornment>}
                               />
@@ -413,10 +639,8 @@ class NextGames extends Component {
 
 
 
-                    </SwipeableViews>
-                      
-                    
-                    <Divider style={{marginTop: 16}}/>
+                    </SwipeableViews>                    
+                    <Divider />
                     <div className={classNames(classes.padding16, classes.playFooter)}>  
                       <div style={{display: 'flex', justifyContent: 'space-between'}}>
                         <Button 

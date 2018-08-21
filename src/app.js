@@ -32,7 +32,7 @@ class App extends Component {
           <CssBaseline />
           <Switch>
             <Route path="/dashboard" component={DashboardView}/>
-            <Redirect to="/dashboard" />
+            <Redirect to="/dashboard/proximos" />
           </Switch>
         </React.Fragment>
       </div>
